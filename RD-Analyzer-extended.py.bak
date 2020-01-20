@@ -55,30 +55,30 @@ debug = options.debug
 ## Check input fastq files
 narg = len(args)
 if narg < 2:
-    print("usage: python " + os.path.realpath(__file__) + " [options] REF.FASTA FASTQ_1 FASTQ_2(optional)")
+    print "usage: python " + os.path.realpath(__file__) + " [options] REF.FASTA FASTQ_1 FASTQ_2(optional)"
     sys.exit()
     
 reference = args[0] # Input reference sequences
 if not os.path.isfile(reference):
-    print("Invalid Input reference file!")
+    print "Invalid Input reference file!"
     sys.exit()
 
 input1 = args[1]    # Input fastq file 1
 if not os.path.isfile(input1):
-    print("Invalid FASTQ 1 file!")
+    print "Invalid FASTQ 1 file!"
     sys.exit()
 
 if narg == 3:
     input2 = args[2]    # Input fastq file 2
     if not os.path.isfile(input2):
-        print("Invalid FASTQ_2 file!")
+        print "Invalid FASTQ_2 file!"
         sys.exit()
 
 
 ## Check output options
 outprefix = outdir+"/"+output
 if os.path.isfile(outprefix+'.sam') or os.path.isfile(outprefix+'.bam') or os.path.isfile(outprefix+'.sort.bam') or os.path.isfile(outprefix+'.depth') or os.path.isfile(outprefix+'.result'):
-    print("Files exist in the output directory with the output prefix specified, refuse to overwrite...")
+    print "Files exist in the output directory with the output prefix specified, refuse to overwrite..."
     sys.exit()
 
 if not os.path.isdir(outdir):
@@ -205,13 +205,13 @@ if __name__ == "__main__":
     try:
         subprocess.call(["bwa", "index", reference])
     except OSError:
-        print("Please check the installation of BWA.")
+        print "Please check the installation of BWA."
         raise
 
     try:
         subprocess.call(["samtools", "faidx", reference])
     except OSError:
-        print("Please check the installation of samtools.")
+        print "Please check the installation of samtools."
         raise
 
     # BWA alignment
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
     # RDs included in the analysis
     info = t.readRef(reference)
-    RDs = list(info.keys())
+    RDs = info.keys()
 
     # Record length of the reference sequences
     RD_length = t.recLength(outprefix+".sort.bam")
