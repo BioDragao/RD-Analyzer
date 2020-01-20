@@ -15,6 +15,19 @@ Python 2.7
 BWA-MEM  
 SAMtools (v 0.1.19)
 
+
+Setup using Conda
+---
+If you have `conda` then you could simply run the following command to create the environnment named `py2`.
+
+```
+conda env create -f environment.yml
+```
+This will install the `python2`, `bwa` and `samtools=0.1.19` in a conda environment named `py2` which can be activated by 
+```
+conda activate py2
+```
+
 Standard RD-Analyzer
 ---
 **Usage:**
