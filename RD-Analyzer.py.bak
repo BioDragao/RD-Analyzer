@@ -71,48 +71,48 @@ debug = options.debug
 ## Check input fastq files
 narg = len(args)
 if narg == 0:
-    print("usage: python " + os.path.realpath(__file__) + " [options] FASTQ_1 FASTQ_2(optional)")
+    print "usage: python " + os.path.realpath(__file__) + " [options] FASTQ_1 FASTQ_2(optional)"
     sys.exit()
 elif narg == 1:
     input1 = args[0]  # Input fastq file 1
     if not os.path.isfile(input1):
-        print("Invalid FASTQ 1 file!")
+        print "Invalid FASTQ 1 file!"
         sys.exit()
 elif narg == 2:
     input1 = args[0]  # Input fastq file 1
     input2 = args[1]  # Input fastq file 2
     if not os.path.isfile(input1):
-        print("Invalid FASTQ_1 file!")
+        print "Invalid FASTQ_1 file!"
         sys.exit()
     elif not os.path.isfile(input2):
-        print("Invalid FASTQ_2 file!")
+        print "Invalid FASTQ_2 file!"
         sys.exit()
 
 ## Check input parameters
 if personalized:
     if not min or not coverage:
-        print("Please specify '-m' and '-c' when using '-p' for personalized cut-off!")
+        print "Please specify '-m' and '-c' when using '-p' for personalized cut-off!"
         sys.exit()
 
     min = int(min)
 
     if min < 0 or min > 1:
-        print("Invalid '-m' option! Please specify a number between 0 and 1.")
+        print "Invalid '-m' option! Please specify a number between 0 and 1."
         sys.exit()
 
     if coverage < 0 or coverage > 1:
-        print("Invalid '-c' option! Please specify a number between 0 and 1.")
+        print "Invalid '-c' option! Please specify a number between 0 and 1."
         sys.exit()
 else:
     if min or coverage:
-        print("'-m' or '-c' only works when '-p' is used for personalized cut-off!")
+        print "'-m' or '-c' only works when '-p' is used for personalized cut-off!"
         sys.exit()
 
 ## Check output options
 outprefix = outdir + "/" + output
 if os.path.isfile(outprefix + '.sam') or os.path.isfile(outprefix + '.bam') or os.path.isfile(
         outprefix + '.sort.bam') or os.path.isfile(outprefix + '.depth') or os.path.isfile(outprefix + '.result'):
-    print("Files exist in the output directory with the output prefix specified, refuse to overwrite...")
+    print "Files exist in the output directory with the output prefix specified, refuse to overwrite..."
     sys.exit()
 
 if not os.path.isdir(outdir):
@@ -219,7 +219,7 @@ class Main:
         for item in deletion:
             storage[item] = storage.get(item, 0) + 1
 
-        maxKey, maxVal = max(iter(storage.items()), key=lambda x: x[1])
+        maxKey, maxVal = max(storage.iteritems(), key=lambda x: x[1])
         if maxVal >= min:
             return [storage, maxKey + 'D']
         else:
@@ -341,13 +341,13 @@ if __name__ == "__main__":
     try:
         subprocess.call(["bwa", "index", dir + "/Reference/RDs30.fasta"])
     except OSError:
-        print("Please check the installation of BWA.")
+        print "Please check the installation of BWA."
         raise
 
     try:
         subprocess.call(["samtools", "faidx", dir + "/Reference/RDs30.fasta"])
     except OSError:
-        print("Please check the installation of samtools.")
+        print "Please check the installation of samtools."
         raise
 
     # BWA alignment
